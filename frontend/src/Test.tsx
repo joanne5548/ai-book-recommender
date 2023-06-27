@@ -1,9 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import {Container, Row, Col, Button, Alert, Breadcrumb, Card, Form} from 'react-bootstrap'
+import './App.css'
 
 function Test() {
     return (
-    <div className="Test">
+    <div className="App">
       <Breadcrumb>
         <Breadcrumb.Item>Joanne</Breadcrumb.Item>
         <Breadcrumb.Item>Angela</Breadcrumb.Item>
@@ -47,4 +48,4 @@ function Test() {
     )
 }
 
-export default Test
+export default Test;
