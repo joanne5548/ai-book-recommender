@@ -1,7 +1,5 @@
 import pandas as pd
-import numpy as np
-from kmodes.kmodes import KModes
-import matplotlib.pyplot as plt
+import pickle
 
 def MakeBooksList():
     raw_books = pd.read_csv("books.csv")
@@ -22,33 +20,16 @@ def MakeBookTitles():
         book_titles.append(book.title)
     return book_titles
 
-def MakeClusters():
-    book_titles = MakeBookTitles()
-    df = pd.read_csv("table.csv")
-    print("read csv")
-    df.pop(df.columns[0])
-    df.columns = book_titles
-    df.fillna('')
-    df = df.astype(str)
-    print(df)
-    df.info()
-    catColumnsPos = [df.columns.get_loc(col) for col in list(df.select_dtypes('object').columns)]
-    print('Categorical columns           : {}'.format(list(df.select_dtypes('object').columns)))
-    print('Categorical columns position  : {}'.format(catColumnsPos))
-    dfMatrix = df.to_numpy()
-
-    cost = []
-    K = range(1, 100)
-    for num_clusters in K:
-        kmodes = KModes(n_clusters=num_clusters, init='random', n_init=5, verbose=1)
-        kmodes.fit_predict(dfMatrix, categorical=catColumnsPos)
-        cost.append(kmodes.cost_)
-
-    plt.plot(K, cost, 'bx-')
-    plt.title('Elbow')
-    plt.xlabel('k-clusters')
-    plt.ylabel('cost')
-    plt.show()
+def Reccomend(booknum, num_of_reccomendations):
+    arr_of_books = MakeBooksList()
+    with open("book_model.pkl", 'rb') as file:
+        model = pickle.load(file)
+    with open("table.pkl", 'rb') as file:
+        table = pickle.load(file)
+    distance, suggestion = model.kneighbors(table.iloc[booknum, :].values.reshape(1, -1), n_neighbors=num_of_reccomendations + 1)
+    print(suggestion)
+    for i in range(1, len(suggestion)):
+        print(IDToBook(suggestion[i], arr_of_books))
 
 def IDToBook(id, arr_of_books):
     for book in arr_of_books:
