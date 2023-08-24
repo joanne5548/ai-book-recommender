@@ -1,11 +1,12 @@
 import pandas as pd
 import pickle
+import warnings
 
 def MakeBooksList():
     raw_books = pd.read_csv("books.csv")
     arr_of_books = []
     for index, row in raw_books.iterrows():
-        book = Book(row["title"], row["book_id"] - 1, row["best_book_id"], row["authors"],
+        book = Book(row["title"], row["book_id"], row["best_book_id"], row["authors"],
                     row["original_publication_year"],
                     row["isbn"], row["ratings_1"], row["ratings_2"], row["ratings_3"], row["ratings_4"],
                     row["ratings_5"],
@@ -20,21 +21,19 @@ def MakeBookTitles():
         book_titles.append(book.title)
     return book_titles
 
-def Reccomend(booknum, num_of_reccomendations):
-    arr_of_books = MakeBooksList()
+def Recommend(booknum, num_of_reccomendations):
     with open("book_model.pkl", 'rb') as file:
         model = pickle.load(file)
     with open("table.pkl", 'rb') as file:
         table = pickle.load(file)
     distance, suggestion = model.kneighbors(table.iloc[booknum, :].values.reshape(1, -1), n_neighbors=num_of_reccomendations + 1)
-    print(suggestion)
-    for i in range(1, len(suggestion)):
-        print(IDToBook(suggestion[i], arr_of_books))
+    return suggestion
 
 def IDToBook(id, arr_of_books):
     for book in arr_of_books:
-        if book.id == id:
+        if (book.id == id):
             return book
+    return arr_of_books[0]
 
 def BookToId(title, arr_of_books):
     for book in arr_of_books:
