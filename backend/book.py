@@ -8,12 +8,9 @@ api = Api(app)
 class Book(Resource):
     def get(self, id):
         if id == 'all':
-            return cluster.MakeBooksDictrionary()
+            return cluster.MakeBooksList()
         intid = int(id)
         rec = cluster.Recommend(intid, 5)
-        recommend = []
-        for book in rec:
-            recommend.append(book.title)
-        return recommend
+        return rec
 
 api.add_resource(Book, '/books/<id>')
