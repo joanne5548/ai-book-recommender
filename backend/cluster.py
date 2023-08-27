@@ -2,14 +2,13 @@ import pandas as pd
 import pickle
 
 def MakeBooksList():
-    raw_books = pd.read_csv("books.csv")
+    raw_books = pd.read_csv("data/books.csv")
     arr_of_books = []
     for index, row in raw_books.iterrows():
         book = {"title": row["title"],
                 "id": row["book_id"],
                 "author": row["authors"],
                 "year": row["original_publication_year"],
-                "isbn": row["isbn"],
                 "url": row["image_url"],
                 "small_url": row["small_image_url"]}
         arr_of_books.append(book)
@@ -24,9 +23,9 @@ def MakeBookTitles():
 
 def Recommend(booknum, num_of_reccomendations):
     arr_of_books = MakeBooksList()
-    with open("book_model.pkl", 'rb') as file:
+    with open("data/book_model.pkl", 'rb') as file:
         model = pickle.load(file)
-    with open("table.pkl", 'rb') as file:
+    with open("data/table.pkl", 'rb') as file:
         table = pickle.load(file)
     distance, suggestion = model.kneighbors(table.iloc[booknum - 1, :].values.reshape(1, -1), n_neighbors=num_of_reccomendations+1)
     for i in range(len(suggestion[0])):

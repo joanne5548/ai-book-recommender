@@ -1,7 +1,7 @@
-import backend.book
+import book
 
 def main():
-    backend.book.app.run()
+    book.app.run()
 
 if __name__ == "__main__":
     main()
