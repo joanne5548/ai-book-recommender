@@ -10,7 +10,7 @@ class Book(Resource):
         if id == 'all':
             return cluster.MakeBooksList()
         intid = int(id)
-        rec = cluster.Recommend(intid, 5)
+        rec = cluster.Recommend(intid, 10)
         return rec
 
 api.add_resource(Book, '/books/<id>')
