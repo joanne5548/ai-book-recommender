@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=VT323&display=swap');
+
+body {
+  background-color: #f5f5dc !important;
+}
+
+#project-title {
+  font-size: 70px;
+  font-family: 'Playfair Display', serif !important;
+}
+
+div #title-bg {
+  background-image: url("../assets/library.jpg");
+  height: 1000px;
+  width: auto;
+  background-repeat: "no-repeat";
+  background-size: "cover";
+}
