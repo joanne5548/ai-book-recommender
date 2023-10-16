@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=VT323&display=swap');
+
+.search-title {
+  font-size: 50px;
+  font-family: 'Playfair Display', serif !important;
+}
+
+div .search-bg-top {
+    background-image: url("../assets/book-store.jpg");
+    height: 200px;
+    width: auto;
+    background-repeat: "no-repeat";
+    background-size: "cover";
+    background-position: top;
+}
+
+div .search-bg-bottom {
+    background-image: url("../assets/book-store.jpg");
+    height: 200px;
+    width: auto;
+    background-repeat: "no-repeat";
+    background-size: "cover";
+    background-position: bottom;
+}
+
+#search-bar {
+  width: 700px;
+}

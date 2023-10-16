@@ -1,6 +1,8 @@
 import "../css/home.css";
+import lion from "../assets/lion-reading.png";
 
 import Typewriter from "typewriter-effect";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -13,7 +15,7 @@ const Home = () => {
             onInit={(typewriter) => {
               typewriter
                 .typeString(
-                  '<span id="project-title"><mark>AI Book Recommender</mark></span>'
+                  '<span id="project-title">AI Book Recommender</span>'
                 )
                 .callFunction(() => {
                   console.log("String typed out!");
@@ -27,6 +29,15 @@ const Home = () => {
             }}
           />
         </div>
+      </div>
+      <div className="fill d-flex flex-column justify-content-center align-items-center">
+        <Link
+          to="/Search"
+          className="header-1 hover link-underline link-underline-opacity-0"
+        >
+          Start Searching
+        </Link>
+        <img src={lion} alt="Lion reading a book"></img>
       </div>
     </>
   );
